@@ -181,7 +181,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/modernizr/modernizr.js') }}"></script>
     <!-- slimscroll js -->
     {{-- <script type="text/javascript" src="{{ asset('assets/js/SmoothScroll.js') }}"></script> --}}
-    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+    <script src="{{ asset('assets/js/jquery.mCustomScrollbar.concat.min.js ') }}"></script>
     <!-- Chart js -->
     <script type="text/javascript" src="{{ asset('assets/js/chart.js/Chart.js') }}"></script>
     <!-- amchart js -->

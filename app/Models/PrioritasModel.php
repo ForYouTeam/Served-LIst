@@ -11,6 +11,6 @@ class PrioritasModel extends Model
     protected $table = 'prioritas';
 
     protected $fillable = [
-        'nama_prioritas', 'deadline', 'created_at', 'updated_at'
+        'nama_prioritas', 'deadline', 'color', 'created_at', 'updated_at'
     ];
 }

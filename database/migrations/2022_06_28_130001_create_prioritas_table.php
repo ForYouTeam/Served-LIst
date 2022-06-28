@@ -13,6 +13,7 @@ class CreatePrioritasTable extends Migration
             $table->id();
             $table->string('nama_prioritas');
             $table->integer('deadline');
+            $table->string('color');
             $table->timestamps();
         });
     }

@@ -32,10 +32,10 @@
                                     <table class="table table-hover" id="tableData">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
+                                                <th style="width: 20px;">#</th>
                                                 <th>Nama</th>
                                                 <th>Nomor Regist</th>
-                                                <th>Opsi</th>
+                                                <th style="width: 100px;">Opsi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -48,11 +48,12 @@
                                                     <td>{{ $d->nama }}</td>
                                                     <td>{{ $d->no_regist }}</td>
                                                     <td>
-                                                        <button class="btn btn-icon btn-primary mr-1"
-                                                            id="{{ $d->id }}"><i
-                                                                class="fa-solid fa-square-pen"></i></button>
-                                                        <button class="btn btn-icon btn-default" id="{{ $d->id }}"><i
-                                                                class="fa-solid fa-trash-can"></i></button>
+                                                        <button class="btn waves-effect waves-light btn-primary btn-icon"
+                                                            id="{{ $d->id }}"><i class="fa-solid fa-square-pen"
+                                                                style="padding: 10px 10px 10px;"></i></button>
+                                                        <button class="btn waves-effect waves-light btn-inverse btn-icon"
+                                                            id="{{ $d->id }}"><i class="fa-solid fa-trash-can"
+                                                                style="padding: 10px 10px 10px;"></i></button>
                                                     </td>
                                                 </tr>
                                             @endforeach

@@ -6,18 +6,18 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class TagsRequest extends FormRequest
+class TagValRequest extends FormRequest
 {
 
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     public function rules()
     {
         return [
-            'nama_tag' => 'required|min:2|max:50|unique:tag,nama_tag',
+            'nama_tag' => 'required|min:2|max:50',
             'deskripsi' => 'required|min:5',
             'color' => 'required|min:2',
         ];

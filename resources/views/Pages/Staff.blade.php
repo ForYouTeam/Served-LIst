@@ -48,11 +48,15 @@
                                                     <td>{{ $d->nama }}</td>
                                                     <td>{{ $d->no_regist }}</td>
                                                     <td>
-                                                        <button class="btn waves-effect waves-light btn-primary btn-icon"
-                                                            id="{{ $d->id }}"><i class="fa-solid fa-square-pen"
+                                                        <button id="btn-edit"
+                                                            class="btn waves-effect waves-light btn-primary btn-icon"
+                                                            data-id="{{ Crypt::encrypt($d->id) }}"><i
+                                                                class="fa-solid fa-square-pen"
                                                                 style="padding: 10px 10px 10px;"></i></button>
-                                                        <button class="btn waves-effect waves-light btn-inverse btn-icon"
-                                                            id="{{ $d->id }}"><i class="fa-solid fa-trash-can"
+                                                        <button id="btn-hapus"
+                                                            class="btn waves-effect waves-light btn-inverse btn-icon"
+                                                            data-id="{{ Crypt::encrypt($d->id) }}"><i
+                                                                class="fa-solid fa-trash-can"
                                                                 style="padding: 10px 10px 10px;"></i></button>
                                                     </td>
                                                 </tr>
@@ -132,6 +136,87 @@
                 },
                 error: function(result) {
                     $('#btn-simpan').prop('disabled', false);
+                    let data = result.responseJSON
+                    let errorRes = data.errors
+                    Swal.fire({
+                        icon: data.response.icon,
+                        title: data.response.title,
+                        text: data.response.message,
+                    });
+                    if (errorRes.length >= 1) {
+                        $('.miniAlert').html('');
+                        $('#nama-alert').html(errorRes.data.nama);
+                        $('#no_regist-alert').html(errorRes.data.no_regist);
+                    }
+                }
+            });
+        });
+
+        $(document).on('click', '#btn-edit', function() {
+            let _id = $(this).data('id');
+            let url = `{{ config('app.url') }}/api/staff/${_id}`;
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function(result) {
+                    $('.modal-title').html('Form Ubah Data');
+                    $('#form-update').html('');
+                    $('#form-update').append(`
+                    <div class="row card-body" style="padding: 30px 120px 42px">
+                        <input type="hidden" id="idStaff" value="${_id}">
+                        <div class="col-md-12 form-group">
+                            <label class="col-form-label">Nama Lengkap</label>
+                            <input name="nama" type="text" class="form-control mt-2"
+                                placeholder="klik disini!" autocomplete="off" value="${result.data.nama}">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label class="col-form-label">Nomor Regist</label>
+                            <input name="no_regist" type="number" class="form-control mt-2"
+                                placeholder="klik disini!" autocomplete="off" value="${result.data.no_regist}">
+                        </div>
+                        <blockquote class="blockquote mt-3">
+                            <p class="m-b-0">Pastikan semua field terisi sebelum mengirim formulir.</p>
+                        </blockquote>    
+                    </div>
+                    `);
+                    $('#modalUniv').modal('show');
+                },
+                error: function(result) {
+                    let data = result.responseJSON
+                    let errorRes = data.errors
+                    Swal.fire({
+                        icon: data.response.icon,
+                        title: data.response.title,
+                        text: data.response.message,
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '#btn-update', function() {
+            let _id = $('#idStaff').val();
+            let url = `{{ config('app.url') }}/api/staff/${_id}`;
+            let data = $('#form-update').serialize();
+            $('#btn-edit').prop('disabled', true);
+            $('#modalUniv').modal('hide');
+            $.ajax({
+                url: url,
+                method: "PATCH",
+                data: data,
+                success: function(result) {
+                    Swal.fire({
+                        title: result.response.title,
+                        text: result.response.message,
+                        icon: result.response.icon,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        location.reload();
+                    });
+                },
+                error: function(result) {
+                    $('#btn-edit').prop('disabled', false);
                     let data = result.responseJSON
                     let errorRes = data.errors
                     Swal.fire({

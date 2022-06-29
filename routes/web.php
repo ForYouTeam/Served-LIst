@@ -1,18 +1,23 @@
 <?php
 
+use App\Http\Controllers\Cms\StaffController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('pages.Table');
+});
+
+Route::prefix('pages')->group(function () {
+    Route::get('staff', [StaffController::class, 'index'])->name('staff.index');
+});
+
+Route::prefix('api')->group(function () {
+    Route::prefix('staff')->controller(StaffController::class)->group(function () {
+        Route::get('/', 'getAllStaff');
+        Route::get('/{id}', 'getStaffById');
+        Route::post('/', 'createStaff');
+        Route::patch('/{id}', 'updateStaff');
+        Route::delete('/{id}', 'deleteStaff');
+    });
 });

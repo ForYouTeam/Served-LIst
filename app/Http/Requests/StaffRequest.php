@@ -11,7 +11,7 @@ class StaffRequest extends FormRequest
 
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     public function rules()
@@ -19,7 +19,7 @@ class StaffRequest extends FormRequest
         return [
             'nama' => 'required|min:2|max:50',
             'no_regist' => 'required|min:2|max:50|unique:staff,no_regist',
-            'id_user' => 'required|integer',
+            'id_user' => 'integer',
         ];
     }
 

@@ -13,7 +13,7 @@ class CreateStaffTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('no_regist');
-            $table->foreignId('id_user')->constrained('users');
+            $table->foreignId('id_user')->nullable()->constrained('users');
             $table->timestamps();
         });
     }

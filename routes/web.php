@@ -15,5 +15,6 @@ Route::prefix('pages')->group(function () {
 Route::prefix('api')->group(function () {
     Route::prefix('staff')->controller(StaffController::class)->group(function () {
         Route::get('/', 'getAllStaff');
+        Route::post('/', 'createStaff');
     });
 });

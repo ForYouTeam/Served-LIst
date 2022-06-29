@@ -70,31 +70,24 @@
                                 </blockquote>
                                 <hr>
                             </div>
-                            <form class="row" style="padding: 8px 100px 9px;">
-                                <div class="col-md-6 form-group">
-                                    <label class="col-form-label">Lable Name</label>
-                                    <input type="text" class="form-control mt-2" placeholder="Autocomplete Off"
-                                        autocomplete="off">
-                                    <small class="text-danger" id="label-name-alert"></small>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label class="col-form-label">Select Box</label>
-                                    <select name="select" class="form-control form-control-sm">
-                                        <option selected disabled>Select One Value Only</option>
-                                    </select>
-                                    <small class="text-danger" id="label-name-alert"></small>
+                            <form id="form-simpan" class="row" style="padding: 8px 100px 9px;">
+                                @csrf
+                                <div class="col-md-12 form-group">
+                                    <label class="col-form-label">Nama Lengkap</label>
+                                    <input name="nama" type="text" class="form-control mt-2"
+                                        placeholder="klik disini!" autocomplete="off">
+                                    <small class="text-danger" id="nama-alert"></small>
                                 </div>
                                 <div class="col-md-12 form-group">
-                                    <label class="col-form-label">Textarea</label>
-                                    <textarea rows="5" cols="5" class="form-control" placeholder="Default textarea"></textarea>
-                                    <small class="text-danger" id="label-name-alert"></small>
+                                    <label class="col-form-label">Nomor Regist</label>
+                                    <input name="no_regist" type="number" class="form-control mt-2"
+                                        placeholder="klik disini!" autocomplete="off">
+                                    <small class="text-danger" id="no_regist-alert"></small>
                                 </div>
                                 <div class="col-md-12 form-group">
-                                    <button class="float-right btn btn-sm waves-effect waves-light btn-primary"><i
+                                    <button type="button" id="btn-simpan"
+                                        class="float-right btn waves-effect waves-light btn-primary"><i
                                             class="fa-solid fa-paper-plane"></i></i>Kirim Formulir</button>
-                                    <button type="button" id="button-modal"
-                                        class="float-right mr-2 btn btn-sm waves-effect waves-light btn-secondary">Open
-                                        Modal</button>
                                 </div>
                             </form>
                         </div>
@@ -115,10 +108,43 @@
             });
 
             $('#tableData').DataTable();
+        });
 
-            $('#button-modal').on('click', function() {
-                $('#modalUniv').modal('show');
+        $(document).on('click', '#btn-simpan', function() {
+            let url = `{{ config('app.url') }}` + "/api/staff";
+            let data = $('#form-simpan').serialize();
+            $('#btn-simpan').prop('disabled', true);
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: data,
+                success: function(result) {
+                    Swal.fire({
+                        title: result.response.title,
+                        text: result.response.message,
+                        icon: result.response.icon,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        location.reload();
+                    });
+                },
+                error: function(result) {
+                    $('#btn-simpan').prop('disabled', false);
+                    let data = result.responseJSON
+                    let errorRes = data.errors
+                    Swal.fire({
+                        icon: data.response.icon,
+                        title: data.response.title,
+                        text: data.response.message,
+                    });
+                    if (errorRes.length >= 1) {
+                        $('.miniAlert').html('');
+                        $('#nama-alert').html(errorRes.data.nama);
+                        $('#no_regist-alert').html(errorRes.data.no_regist);
+                    }
+                }
             });
-        })
+        });
     </script>
 @endsection

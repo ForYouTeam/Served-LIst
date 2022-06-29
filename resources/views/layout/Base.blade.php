@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css"
         media="all" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.css"
+        integrity="sha256-AAqx1xXi9Bf0sAjL1wva6EMJ2z+rtAeSNSRRqVpN8cw=" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 </head>
 
@@ -198,6 +200,8 @@
     {{-- <script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script> --}}
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.js"
+        integrity="sha256-yo732aQ32L7iswb/oI0g6AcQDyf0P/9h08dt9GPlC18=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
     @yield('script')
 </body>

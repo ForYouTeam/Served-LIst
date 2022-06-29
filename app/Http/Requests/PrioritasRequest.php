@@ -16,7 +16,7 @@ class PrioritasRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_prioritas' => 'required|min:2|max:50|unique:prioritas,nama_prioritas',
+            'nama_prioritas' => 'required|min:2|max:50',
             'deadline' => 'required',
             'color' => 'required',
         ];

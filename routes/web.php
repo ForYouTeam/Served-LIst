@@ -45,12 +45,3 @@ Route::prefix('api')->group(function () {
         Route::delete('/{id}', 'deletePrioritas');
     });
 });
-Route::prefix('api')->group(function () {
-    Route::prefix('task')->controller(TaskController::class)->group(function () {
-        Route::get('/', 'getAllTask');
-        Route::get('/{id}', 'getTaskById');
-        Route::post('/', 'createTask');
-        Route::patch('/{id}', 'updateTask');
-        Route::delete('/{id}', 'deleteTask');
-    });
-});

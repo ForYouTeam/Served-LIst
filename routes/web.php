@@ -3,6 +3,7 @@
 use App\Http\Controllers\Cms\PrioritasController;
 use App\Http\Controllers\Cms\StaffController;
 use App\Http\Controllers\Cms\TagController;
+use App\Http\Controllers\Cms\TaskController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +15,7 @@ Route::prefix('pages')->group(function () {
     Route::get('staff', [StaffController::class, 'index'])->name('staff.index');
     Route::get('tag', [TagController::class, 'index'])->name('tag.index');
     Route::get('prioritas', [PrioritasController::class, 'index'])->name('prioritas.index');
+    Route::get('task', [TaskController::class, 'index'])->name('task.index');
 });
 
 Route::prefix('api')->group(function () {

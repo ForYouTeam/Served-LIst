@@ -31,6 +31,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.css"
         integrity="sha256-AAqx1xXi9Bf0sAjL1wva6EMJ2z+rtAeSNSRRqVpN8cw=" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <style>
+        .myBox {
+            box-shadow:
+                2.1px 2.9px 10.2px rgba(0, 0, 0, 0.012),
+                7.1px 9.6px 34.2px rgba(0, 0, 0, 0.018),
+                32px 43px 153px rgba(0, 0, 0, 0.03);
+
+            border-radius: 4px;
+        }
+
+        .rmBg {
+            background: none;
+            border: none;
+            color: gray;
+            cursor: pointer;
+        }
+
+        .myPurple {
+            background: #7868E6;
+            color: #EDEEF7 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -111,20 +133,6 @@
                         </div>
                     </nav>
                     <div class="pcoded-content">
-                        <!-- Page-header start -->
-                        <div class="page-header">
-                            <div class="page-block">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">Dashboard</h5>
-                                            <p class="m-b-0">Welcome to Mega Able</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Page-header end -->
                         <div class="pcoded-inner-content">
                             <!-- Main-body start -->
                             <div class="main-body">

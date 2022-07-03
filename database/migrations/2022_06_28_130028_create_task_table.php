@@ -13,6 +13,9 @@ class CreateTaskTable extends Migration
             $table->string('code_task');
             $table->string('nama_task');
             $table->foreignId('level_prioritas')->constrained('prioritas');
+            $table->foreignId('id_staff')->constrained('staff');
+            $table->longText('deskripsi');
+            $table->string('status');
             $table->timestamps();
         });
     }

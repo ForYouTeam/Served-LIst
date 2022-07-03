@@ -45,3 +45,7 @@ Route::prefix('api')->group(function () {
         Route::delete('/{id}', 'deletePrioritas');
     });
 });
+
+Route::prefix('api/task')->controller(TaskController::class)->group(function () {
+    Route::post('realtimeUpdate/{id}', 'updateRealtime');
+});

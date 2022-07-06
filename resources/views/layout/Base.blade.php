@@ -60,6 +60,15 @@
             color: white;
             font-weight: 600;
         }
+
+        .my-cotume-tag {
+            font-size: 8pt;
+            border: 0.5px solid #A0BCC2;
+            padding: 2px 7px 3px 7px;
+            margin: 0px 2px;
+            border-radius: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 

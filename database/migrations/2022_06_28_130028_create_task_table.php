@@ -15,7 +15,7 @@ class CreateTaskTable extends Migration
             $table->foreignId('level_prioritas')->constrained('prioritas');
             $table->foreignId('id_staff')->constrained('staff');
             $table->longText('deskripsi');
-            $table->string('status');
+            $table->string('status')->default('todo');
             $table->timestamps();
         });
     }

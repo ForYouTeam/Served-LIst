@@ -57,7 +57,7 @@
                                 <div class="row mt-2">
                                     <div class="col-sm-12">
                                         <label class="label label-md"
-                                            style="background: #{{ $d->prioritasRole->color }}">{{ $d->prioritasRole->nama_prioritas }}</label>
+                                            style="background: {{ $d->prioritasRole->color }}">{{ $d->prioritasRole->nama_prioritas }}</label>
                                     </div>
                                 </div>
                                 <div class="row" style="padding: 15px 0px 0px">
@@ -65,13 +65,20 @@
                                         <i class="ti-alarm-clock"></i> Deadline
                                         {{ date('d F', strtotime($d->created_at . '+' . $d->prioritasRole->deadline . 'days')) }}
                                         <span class="float-right">
-                                            <button style="margin-top: -10px;"
-                                                class="float-right btn btn-sm waves-effect waves-light btn-secondary btn-icon"
+                                            <button style="margin-top: -10px; background: #333C83; color: white;"
+                                                class="float-right btn btn-sm waves-effect waves-light btn-icon"
                                                 data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                                 title="" data-original-title="{{ $d->staffRole->nama }}">
                                                 {{ Str::of($d->staffRole->nama)->limit(3) }}
                                             </button>
                                         </span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @foreach ($d->tagsRole as $d)
+                                            <span class="my-cotume-tag">
+                                                {{ $d->tagRole->nama_tag }}
+                                            </span>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +107,7 @@
                                 <div class="row mt-2">
                                     <div class="col-sm-12">
                                         <label class="label label-md"
-                                            style="background: #{{ $d->prioritasRole->color }}">{{ $d->prioritasRole->nama_prioritas }}</label>
+                                            style="background: {{ $d->prioritasRole->color }}">{{ $d->prioritasRole->nama_prioritas }}</label>
                                     </div>
                                 </div>
                                 <div class="row" style="padding: 15px 0px 0px">
@@ -108,13 +115,20 @@
                                         <i class="ti-alarm-clock"></i> Deadline
                                         {{ date('d F', strtotime($d->created_at . '+' . $d->prioritasRole->deadline . 'days')) }}
                                         <span class="float-right">
-                                            <button style="margin-top: -10px;"
-                                                class="float-right btn btn-sm waves-effect waves-light btn-secondary btn-icon"
+                                            <button style="margin-top: -10px; background: #F24A72; color: white;"
+                                                class="float-right btn btn-sm waves-effect waves-light btn-icon"
                                                 data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                                 title="" data-original-title="{{ $d->staffRole->nama }}">
                                                 {{ Str::of($d->staffRole->nama)->limit(3) }}
                                             </button>
                                         </span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @foreach ($d->tagsRole as $d)
+                                            <span class="my-cotume-tag">
+                                                {{ $d->tagRole->nama_tag }}
+                                            </span>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +157,7 @@
                                 <div class="row mt-2">
                                     <div class="col-sm-12">
                                         <label class="label label-md"
-                                            style="background: #{{ $d->prioritasRole->color }}">{{ $d->prioritasRole->nama_prioritas }}</label>
+                                            style="background: {{ $d->prioritasRole->color }}">{{ $d->prioritasRole->nama_prioritas }}</label>
                                     </div>
                                 </div>
                                 <div class="row" style="padding: 15px 0px 0px">
@@ -158,6 +172,13 @@
                                                 {{ Str::of($d->staffRole->nama)->limit(3) }}
                                             </button>
                                         </span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @foreach ($d->tagsRole as $d)
+                                            <span class="my-cotume-tag">
+                                                {{ $d->tagRole->nama_tag }}
+                                            </span>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -186,7 +207,7 @@
                                 <div class="row mt-2">
                                     <div class="col-sm-12">
                                         <label class="label label-md"
-                                            style="background: #{{ $d->prioritasRole->color }}">{{ $d->prioritasRole->nama_prioritas }}</label>
+                                            style="background: {{ $d->prioritasRole->color }}">{{ $d->prioritasRole->nama_prioritas }}</label>
                                     </div>
                                 </div>
                                 <div class="row" style="padding: 15px 0px 0px">
@@ -201,6 +222,13 @@
                                                 {{ Str::of($d->staffRole->nama)->limit(3) }}
                                             </button>
                                         </span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        @foreach ($d->tagsRole as $d)
+                                            <span class="my-cotume-tag">
+                                                {{ $d->tagRole->nama_tag }}
+                                            </span>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

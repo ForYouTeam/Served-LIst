@@ -18,8 +18,7 @@ class TagValRequest extends FormRequest
     {
         return [
             'nama_tag' => 'required|min:2|max:50',
-            'deskripsi' => 'required|min:5',
-            'color' => 'required|min:2',
+            'deskripsi' => 'required',
         ];
     }
 

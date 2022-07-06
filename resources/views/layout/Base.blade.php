@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.css"
         integrity="sha256-AAqx1xXi9Bf0sAjL1wva6EMJ2z+rtAeSNSRRqVpN8cw=" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/amsify.suggestags.css') }}">
     <style>
         .myBox {
             box-shadow:
@@ -48,9 +49,16 @@
             cursor: pointer;
         }
 
-        .myPurple {
-            background: #7868E6;
-            color: #EDEEF7 !important;
+        .tag-box:hover {
+            background-color:
+                rgba(171, 201, 255, 0.26);
+        }
+
+        .btn-nofill {
+            background: none;
+            border: none;
+            color: white;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -212,6 +220,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.js"
         integrity="sha256-yo732aQ32L7iswb/oI0g6AcQDyf0P/9h08dt9GPlC18=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.amsify.suggestags.js') }}"></script>
+
     @yield('script')
 </body>
 

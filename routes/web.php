@@ -47,5 +47,6 @@ Route::prefix('api')->group(function () {
 });
 
 Route::prefix('api/task')->controller(TaskController::class)->group(function () {
-    Route::post('realtimeUpdate/{id}', 'updateRealtime');
+    Route::patch('realtimeUpdate/{id}', 'updateRealtime');
+    Route::post('/', 'createTask');
 });

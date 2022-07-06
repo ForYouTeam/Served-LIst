@@ -40,7 +40,7 @@
             {{-- CARD TODO --}}
             <div class="col-md-3" style="padding: 2px 7px">
                 <div data-id="todo" class="card myStatus"
-                    style="padding: 0px 0px 15px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
+                    style="padding: 0px 0px 6px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
                     <p style="font-size: 15pt; font-weight: 500; margin: 20px 15px 20px">Todo</p>
                     @foreach ($data as $d)
                         @if ($d->status == 'todo')
@@ -83,7 +83,7 @@
             {{-- CARD IN PROGRESS --}}
             <div class="col-md-3" style="padding: 2px 7px">
                 <div data-id="inprogress" class="card myStatus"
-                    style="padding: 0px 0px 15px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
+                    style="padding: 0px 0px 6px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
                     <p style="font-size: 15pt; font-weight: 500; margin: 20px 15px 20px">In Progress</p>
                     @foreach ($data as $d)
                         @if ($d->status == 'inprogress')
@@ -126,7 +126,7 @@
             {{-- CARD REVIEW --}}
             <div class="col-md-3" style="padding: 2px 7px">
                 <div data-id="review" class="card myStatus"
-                    style="padding: 0px 0px 15px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
+                    style="padding: 0px 0px 6px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
                     <p style="font-size: 15pt; font-weight: 500; margin: 20px 15px 20px">Review</p>
                     @foreach ($data as $d)
                         @if ($d->status == 'review')
@@ -169,7 +169,7 @@
             {{-- CARD DONE --}}
             <div class="col-md-3" style="padding: 2px 7px">
                 <div data-id="done" class="card myStatus"
-                    style="padding: 0px 0px 15px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
+                    style="padding: 0px 0px 6px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
                     <p style="font-size: 15pt; font-weight: 500; margin: 20px 15px 20px">Done</p>
                     @foreach ($data as $d)
                         @if ($d->status == 'done')
@@ -222,14 +222,96 @@
             });
         });
 
+        let form = `
+            <div class="row" style="padding: 10px 3px;">
+                <div class="col-md-6 form-group">
+                    <label class="col-form-label">Nama Task</label>
+                    <input name="nama_task" type="text" class="form-control mt-2" placeholder="Klik disini"
+                        autocomplete="off">
+                    <small class="text-danger" id="nama_task-alert"></small>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="col-form-label">Kode Task</label>
+                    <input name="code_task" type="text" class="form-control mt-2" placeholder="Klik disini"
+                        autocomplete="off">
+                    <small class="text-danger" id="code_task-alert"></small>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="col-form-label">Prioritas</label>
+                    <select name="level_prioritas" class="form-control form-control-sm">
+                        <option selected disabled>Select One Value Only</option>
+                    </select>
+                    <small class="text-danger" id="level_prioritas-alert"></small>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="col-form-label">Staff</label>
+                    <select name="id_staff" class="form-control form-control-sm">
+                        <option selected disabled>Select One Value Only</option>
+                    </select>
+                    <small class="text-danger" id="id_staff-alert"></small>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label class="col-form-label">Tag</label>
+                    <input name="tags" type="text" class="form-control" placeholder="Tag baru atau pilih"
+                        autocomplete="off">
+                    <small class="text-danger" id="tags-alert"></small>
+                </div>
+                <div class="col-md-12 form-group">
+                    <label class="col-form-label">Deskripsi</label>
+                    <textarea name="deskripsi" rows="8" cols="5" class="form-control" placeholder="Masukan Deskripsi"></textarea>
+                    <small class="text-danger" id="deskripsi-alert"></small>
+                </div>
+            </div>
+        `
+
         $(document).on('click', '#btn-tambah', function() {
             $('#modalUniv').modal('show');
             $('#form-update').html('');
-            $('#form-update').append(`
-
-            `);
+            $('#form-update').append(form);
             $('.modal-title').html('Buat Task Baru');
+            let url = `{{ config('app.url') }}/api/prioritas/`;
+            $.get(url, function(result) {
+                $('select[name="level_prioritas"]').html(
+                    `<option selected disabled>Select One Value Only</option>`
+                );
+
+                $.each(result.data, function(i, value) {
+                    $('select[name="level_prioritas"]').append(
+                        `<option value="${value.id}">${value.nama_prioritas}</option>`
+                    );
+                });
+            });
+
+            url = `{{ config('app.url') }}/api/staff/`;
+            $.get(url, function(result) {
+                $('select[name="id_staff"]').html(
+                    `<option selected disabled>Select One Value Only</option>`
+                );
+
+                $.each(result.data, function(i, value) {
+                    $('select[name="id_staff"]').append(
+                        `<option value="${value.id}">${value.nama}</option>`
+                    );
+                });
+            });
+
+            url = `{{ config('app.url') }}/api/tag/`;
+            $.get(url, function(result) {
+                let sugest = [];
+                $.each(result.data, function(i, val) {
+                    sugest[i] = {
+                        tag: val.nama_tag,
+                        value: val.id
+                    }
+                });
+                $('input[name="tags"]').amsifySuggestags({
+                    type: 'bootstrap',
+                    suggestions: sugest,
+                    tagLimit: 5
+                });
+            });
         });
+
         let carId = null;
         const updateStatus = (stat) => {
             let url = `{{ config('app.url') }}/api/task/realtimeUpdate/${carId}`;
@@ -237,7 +319,7 @@
                 status: stat
             }
             $.ajax({
-                type: "POST",
+                type: "PATCH",
                 url: url,
                 data: data,
             });
@@ -288,5 +370,47 @@
             let _id = this.getAttribute('data-id');
             updateStatus(_id);
         }
+
+        $(document).on('click', '#btn-update', function() {
+            let url = `{{ config('app.url') }}/api/task/`;
+            let data = $('#form-update').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function(result) {
+                    console.log(result);
+                    Swal.fire({
+                        title: result.response.title,
+                        text: result.response.message,
+                        icon: result.response.icon,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        location.reload();
+                    });
+                },
+                error: function(err) {
+                    $('#modalUniv').modal('hide');
+                    let res = err.responseJSON;
+                    let errorRes = res.errors;
+                    console.log(res);
+                    Swal.fire({
+                        icon: res.response.icon,
+                        title: res.response.title,
+                        text: res.response.message,
+                    }).then(() => {
+                        $('#modalUniv').modal('show');
+                        if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
+                            $.each(errorRes.data, function(i, value) {
+                                $(`#${i}-alert`).html(value);
+                            });
+                        }
+                    });
+                }
+            });
+        });
     </script>
 @endsection

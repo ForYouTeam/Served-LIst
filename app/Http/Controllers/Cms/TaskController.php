@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cms;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TaskRequest;
 use App\Models\TaskModel;
 use Illuminate\Http\Request;
 
@@ -42,5 +43,10 @@ class TaskController extends Controller
         }
 
         return response()->json($result);
+    }
+
+    public function createTask(TaskRequest $request)
+    {
+        return response()->json($request->all());
     }
 }

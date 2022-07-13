@@ -423,6 +423,7 @@
                 url: url,
                 data: data,
                 success: function(result) {
+                    $('#modalUniv').modal('hide');
                     console.log(result);
                     Swal.fire({
                         title: result.response.title,
@@ -546,6 +547,48 @@
                     });
                 }
             });
+        });
+
+        $(document).on('click', '#btn-hapus', function() {
+            let _id = $(this).data('id');
+            let url = `{{ config('app.url') }}/api/task/delete_task/${_id}`;
+            Swal.fire({
+                title: 'Anda Yakin?',
+                text: "Data ini mungkin terhubung ke tabel yang lain!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Hapus'
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'delete',
+                        success: function(result) {
+                            let data = result.data;
+                            Swal.fire({
+                                title: result.response.title,
+                                text: result.response.message,
+                                icon: result.response.icon,
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Oke'
+                            }).then((result) => {
+                                location.reload();
+                            });
+                        },
+                        error: function(result) {
+                            let data = result.responseJSON
+                            Swal.fire({
+                                icon: data.response.icon,
+                                title: data.response.title,
+                                text: data.response.message,
+                            });
+                        }
+                    });
+                }
+            })
         });
     </script>
 @endsection

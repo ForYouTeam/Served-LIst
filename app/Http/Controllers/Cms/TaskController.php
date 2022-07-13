@@ -201,4 +201,44 @@ class TaskController extends Controller
 
         return response()->json($response, $response['code']);
     }
+
+    public function deleteTask($id)
+    {
+        try {
+            $findTask = TaskModel::whereId($id);
+            if ($findTask->first()) {
+                DetailTagModel::where('id_task', $id)->delete();
+                $task = array(
+                    'data' => $findTask->delete(),
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Terhapus',
+                        'message' => 'Data berhasil dihapus',
+                    ),
+                    'code' => 201
+                );
+            } else {
+                $task = array(
+                    'data' => null,
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Tidak Ditemukan',
+                        'message' => 'Data tidak tersedia',
+                    ),
+                    'code' => 404
+                );
+            }
+        } catch (\Throwable $th) {
+            $task = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+        return response()->json($task, $task['code']);
+    }
 }

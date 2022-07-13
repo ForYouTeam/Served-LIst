@@ -1,45 +1,25 @@
 @extends('layout.Base')
 @section('content')
     <div class="card">
-        <div class="row" style="padding: 20px 25px 0px;">
+        <div class="row" style="padding: 20px 25px 30px;">
             <div class="col-md-4">
                 <p style="font-size: 12pt; color: #789395; margin-bottom: 0px;">Board Page / Username</p>
                 <h3>Semua Task</h3>
             </div>
-            <div class="col-md-8 text-right" style="padding-top: 25px;">
-                <span class="mr-3" style="font-size: 12pt; color: #789395;"><i class="ti-receipt"></i> 10 Total
+            <div class="col-md-8 text-right" style="padding-top: 5px;">
+                <span class="mr-3" style="font-size: 12pt; color: #789395;"><i class="ti-receipt"></i> {{ count($data) }}
+                    Total
                     Task</span>
                 <button id="btn-tambah" class="btn btn-primary waves-effect waves-light" style="border-radius: 4px;">Tambah
                     Task
                     Baru</button>
             </div>
         </div>
-        <div class="row" style="padding: 31px 25px 30px">
-            <div class="col-md-3 mb-2">
-                <input type="text" class="form-control form-control-round" placeholder="Search">
-            </div>
-            <div class="col-md-9">
-                <span class="float-right">
-                    <label style="color: #789395;" for="" class="form-label mr-2">GROUP BY</label>
-                    <div class="dropdown-primary dropdown open">
-                        <button style="color: #789395; width: 90px;"
-                            class="btn btn-sm btn-default dropdown-toggle waves-effect waves-light " type="button"
-                            id="dropdown-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">- Pilih
-                            -</button>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-2" data-dropdown-in="fadeIn"
-                            data-dropdown-out="fadeOut" x-placement="bottom-start"
-                            style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
-                            <button type="button" class="dropdown-item waves-light waves-effect">Action</button>
-                        </div>
-                    </div>
-                </span>
-            </div>
-        </div>
 
         <div id="all-height" class="row" style="padding: 0px 25px 50px;">
             {{-- CARD TODO --}}
             <div class="col-md-3" style="padding: 2px 7px">
-                <div data-id="todo" class="card myStatus"
+                <div data-id="todo" data-color="#333C83" class="card myStatus"
                     style="padding: 0px 0px 6px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
                     <p style="font-size: 15pt; font-weight: 500; margin: 20px 15px 20px">Todo</p>
                     @foreach ($data as $d)
@@ -47,11 +27,13 @@
                             <div data-id="{{ $d->id }}" draggable="true" class="card-block bg-white myBox myTask"
                                 style="margin: 3px 5px; padding: 15px;">
                                 <div class="row">
-                                    <div class="col-sm-12" style="color: black; font-size: 12pt;">{{ $d->nama_task }}
-                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
-                                            class="rmBg float-right"><i class="ti-trash"></i></button>
+                                    <div class="col-sm-10" style="color: black; font-size: 12pt;">{{ $d->nama_task }}
+                                    </div>
+                                    <div class="col-sm-2">
                                         <button data-id="{{ $d->id }}" id="btn-edit" type="button"
                                             class="rmBg float-right"><i class="ti-pencil"></i></button>
+                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
+                                            class="rmBg float-right"><i class="ti-trash"></i></button>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -65,7 +47,8 @@
                                         <i class="ti-alarm-clock"></i> Deadline
                                         {{ date('d F', strtotime($d->created_at . '+' . $d->prioritasRole->deadline . 'days')) }}
                                         <span class="float-right">
-                                            <button style="margin-top: -10px; background: #333C83; color: white;"
+                                            <button id="button-{{ $d->id }}"
+                                                style="margin-top: -10px; background: #333C83; color: white;"
                                                 class="float-right btn btn-sm waves-effect waves-light btn-icon"
                                                 data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                                 title="" data-original-title="{{ $d->staffRole->nama }}">
@@ -89,7 +72,7 @@
             {{-- BATASSSS --}}
             {{-- CARD IN PROGRESS --}}
             <div class="col-md-3" style="padding: 2px 7px">
-                <div data-id="inprogress" class="card myStatus"
+                <div data-id="inprogress" data-color="#F24A72" class="card myStatus"
                     style="padding: 0px 0px 6px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
                     <p style="font-size: 15pt; font-weight: 500; margin: 20px 15px 20px">In Progress</p>
                     @foreach ($data as $d)
@@ -97,11 +80,13 @@
                             <div data-id="{{ $d->id }}" draggable="true" class="card-block bg-white myBox myTask"
                                 style="margin: 3px 5px; padding: 15px;">
                                 <div class="row">
-                                    <div class="col-sm-12" style="color: black; font-size: 12pt;">{{ $d->nama_task }}
-                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
-                                            class="rmBg float-right"><i class="ti-trash"></i></button>
+                                    <div class="col-sm-10" style="color: black; font-size: 12pt;">{{ $d->nama_task }}
+                                    </div>
+                                    <div class="col-sm-2">
                                         <button data-id="{{ $d->id }}" id="btn-edit" type="button"
                                             class="rmBg float-right"><i class="ti-pencil"></i></button>
+                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
+                                            class="rmBg float-right"><i class="ti-trash"></i></button>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -115,7 +100,8 @@
                                         <i class="ti-alarm-clock"></i> Deadline
                                         {{ date('d F', strtotime($d->created_at . '+' . $d->prioritasRole->deadline . 'days')) }}
                                         <span class="float-right">
-                                            <button style="margin-top: -10px; background: #F24A72; color: white;"
+                                            <button id="button-{{ $d->id }}"
+                                                style="margin-top: -10px; background: #F24A72; color: white;"
                                                 class="float-right btn btn-sm waves-effect waves-light btn-icon"
                                                 data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                                 title="" data-original-title="{{ $d->staffRole->nama }}">
@@ -139,7 +125,7 @@
             {{-- BATASSSS --}}
             {{-- CARD REVIEW --}}
             <div class="col-md-3" style="padding: 2px 7px">
-                <div data-id="review" class="card myStatus"
+                <div data-id="review" data-color="#FDAF75" class="card myStatus"
                     style="padding: 0px 0px 6px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
                     <p style="font-size: 15pt; font-weight: 500; margin: 20px 15px 20px">Review</p>
                     @foreach ($data as $d)
@@ -147,11 +133,13 @@
                             <div data-id="{{ $d->id }}" draggable="true" class="card-block bg-white myBox myTask"
                                 style="margin: 3px 5px; padding: 15px;">
                                 <div class="row">
-                                    <div class="col-sm-12" style="color: black; font-size: 12pt;">{{ $d->nama_task }}
-                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
-                                            class="rmBg float-right"><i class="ti-trash"></i></button>
+                                    <div class="col-sm-10" style="color: black; font-size: 12pt;">{{ $d->nama_task }}
+                                    </div>
+                                    <div class="col-sm-2">
                                         <button data-id="{{ $d->id }}" id="btn-edit" type="button"
                                             class="rmBg float-right"><i class="ti-pencil"></i></button>
+                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
+                                            class="rmBg float-right"><i class="ti-trash"></i></button>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -165,8 +153,9 @@
                                         <i class="ti-alarm-clock"></i> Deadline
                                         {{ date('d F', strtotime($d->created_at . '+' . $d->prioritasRole->deadline . 'days')) }}
                                         <span class="float-right">
-                                            <button style="margin-top: -10px;"
-                                                class="float-right btn btn-sm waves-effect waves-light btn-secondary btn-icon"
+                                            <button id="button-{{ $d->id }}"
+                                                style="margin-top: -10px; background: #FDAF75; color: white;"
+                                                class="float-right btn btn-sm waves-effect waves-light btn-icon"
                                                 data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                                 title="" data-original-title="{{ $d->staffRole->nama }}">
                                                 {{ Str::of($d->staffRole->nama)->limit(3) }}
@@ -189,7 +178,7 @@
             {{-- BATASSSS --}}
             {{-- CARD DONE --}}
             <div class="col-md-3" style="padding: 2px 7px">
-                <div data-id="done" class="card myStatus"
+                <div data-id="done" data-color="#3A3845" class="card myStatus"
                     style="padding: 0px 0px 6px; color: #748DA6; background: rgba(156, 180, 204, 0.199)">
                     <p style="font-size: 15pt; font-weight: 500; margin: 20px 15px 20px">Done</p>
                     @foreach ($data as $d)
@@ -197,11 +186,13 @@
                             <div data-id="{{ $d->id }}" draggable="true" class="card-block bg-white myBox myTask"
                                 style="margin: 3px 5px; padding: 15px;">
                                 <div class="row">
-                                    <div class="col-sm-12" style="color: black; font-size: 12pt;">{{ $d->nama_task }}
-                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
-                                            class="rmBg float-right"><i class="ti-trash"></i></button>
+                                    <div class="col-sm-10" style="color: black; font-size: 12pt;">{{ $d->nama_task }}
+                                    </div>
+                                    <div class="col-sm-2">
                                         <button data-id="{{ $d->id }}" id="btn-edit" type="button"
                                             class="rmBg float-right"><i class="ti-pencil"></i></button>
+                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
+                                            class="rmBg float-right"><i class="ti-trash"></i></button>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -215,8 +206,9 @@
                                         <i class="ti-alarm-clock"></i> Deadline
                                         {{ date('d F', strtotime($d->created_at . '+' . $d->prioritasRole->deadline . 'days')) }}
                                         <span class="float-right">
-                                            <button style="margin-top: -10px;"
-                                                class="float-right btn btn-sm waves-effect waves-light btn-secondary btn-icon"
+                                            <button id="button-{{ $d->id }}"
+                                                style="margin-top: -10px; background: #3A3845; color:white;"
+                                                class="float-right btn btn-sm waves-effect waves-light btn-icon"
                                                 data-toggle="tooltip" data-placement="top" data-trigger="hover"
                                                 title="" data-original-title="{{ $d->staffRole->nama }}">
                                                 {{ Str::of($d->staffRole->nama)->limit(3) }}
@@ -252,6 +244,7 @@
 
         let form = `
             <div class="row" style="padding: 10px 3px;">
+                <input type="hidden" name="id" value="">
                 <div class="col-md-6 form-group">
                     <label class="col-form-label">Nama Task</label>
                     <input name="nama_task" type="text" class="form-control mt-2" placeholder="Klik disini"
@@ -280,8 +273,8 @@
                 </div>
                 <div class="col-md-12 form-group">
                     <label class="col-form-label">Tag</label>
-                    <input name="tags" type="text" class="form-control" placeholder="Tag baru atau pilih"
-                        autocomplete="off">
+                    <input id="tags-form" name="tags" type="text" class="form-control" placeholder="Tag baru atau pilih"
+                        autocomplete="off" value="">
                     <small class="text-danger" id="tags-alert"></small>
                 </div>
                 <div class="col-md-12 form-group">
@@ -292,11 +285,8 @@
             </div>
         `
 
-        $(document).on('click', '#btn-tambah', function() {
-            $('#modalUniv').modal('show');
-            $('#form-update').html('');
-            $('#form-update').append(form);
-            $('.modal-title').html('Buat Task Baru');
+        const showForm = (defval, idtask) => {
+            $('#tags-form').val(defval);
             let url = `{{ config('app.url') }}/api/prioritas/`;
             $.get(url, function(result) {
                 $('select[name="level_prioritas"]').html(
@@ -335,9 +325,31 @@
                 $('input[name="tags"]').amsifySuggestags({
                     type: 'bootstrap',
                     suggestions: sugest,
-                    tagLimit: 5
+                    tagLimit: 5,
+                    afterRemove: function(value) {
+                        let tagurl = `{{ config('app.url') }}/api/task/del/${value}/${idtask}`
+                        $.ajax({
+                            type: "DELETE",
+                            url: tagurl,
+                            success: (res) => {
+                                console.log(res);
+                            },
+                            error: (err) => {
+                                console.log(err);
+                            }
+                        })
+                    },
                 });
             });
+        }
+
+        $(document).on('click', '#btn-tambah', function() {
+            $('#modalUniv').modal('show');
+            $('#form-update').html('');
+            $('#form-update').append(form);
+            $('.modal-title').html('Buat Task Baru');
+            $('#btn-modif').attr('id', 'btn-update');
+            showForm([], null);
         });
 
         let carId = null;
@@ -356,6 +368,7 @@
         const mytask = document.querySelectorAll('.myTask');
         const mystatus = document.querySelectorAll('.myStatus');
         let draggableTask = null;
+        let color = '';
 
         mytask.forEach((task) => {
             task.addEventListener("dragstart", dragStart);
@@ -376,7 +389,8 @@
 
         function dragEnd() {
             draggableTask = null;
-
+            let idTask = this.getAttribute('data-id');
+            $('#button-' + idTask).css("background", color);
         }
 
         function dragOver(e) {
@@ -386,6 +400,7 @@
 
         function dragEnter() {
             this.style.border = "1px solid #ccc";
+            color = this.getAttribute('data-color');
         }
 
         function dragLeave() {
@@ -408,6 +423,98 @@
                 url: url,
                 data: data,
                 success: function(result) {
+                    console.log(result);
+                    Swal.fire({
+                        title: result.response.title,
+                        text: result.response.message,
+                        icon: result.response.icon,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        location.reload();
+                    });
+                },
+                error: function(err) {
+                    $('#modalUniv').modal('hide');
+                    let res = err.responseJSON;
+                    let errorRes = res.errors;
+                    console.log(res);
+                    Swal.fire({
+                        icon: res.response.icon,
+                        title: res.response.title,
+                        text: res.response.message,
+                    }).then(() => {
+                        $('#modalUniv').modal('show');
+                        if (errorRes.length >= 1) {
+                            $('.miniAlert').html('');
+                            $.each(errorRes.data, function(i, value) {
+                                $(`#${i}-alert`).html(value);
+                            });
+                        }
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '#btn-edit', function() {
+            let timerInterval;
+            let tag = [];
+            Swal.fire({
+                title: 'Sabar Ya!',
+                html: 'Dapatkan data dalam <b></b> milliseconds.',
+                timer: 1000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                    $('#form-update').html('');
+                    $('#form-update').append(form);
+                    $('.modal-title').html('Buat Task Baru');
+                    $('#btn-update').attr('id', 'btn-modif');
+                    let _id = $(this).data('id');
+                    let url = `{{ config('app.url') }}/api/task/get/${_id}`;
+                    $.get(url, function(result) {
+                        let tags = result.data.tags_role;
+                        tags.forEach(el => {
+                            tag.push(el.tag_role.nama_tag);
+                        });
+                        showForm(tag.join(), _id);
+                        $('input[name="id"]').val(result.data.id);
+                        $('input[name="nama_task"]').val(result.data.nama_task);
+                        $('input[name="code_task"]').val(result.data.code_task);
+                        $('textarea[name="deskripsi"]').val(result.data.deskripsi);
+                        setTimeout(() => {
+                            $('select[name="level_prioritas"]').val(result.data
+                                .level_prioritas);
+                            $('select[name="id_staff"]').val(result.data.id_staff);
+                        }, 500);
+                    })
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    $('#modalUniv').modal('show');
+                }
+            })
+        });
+
+        $(document).on('click', '#btn-modif', function() {
+            let _id = $('input[name="id"]').val();
+            let url = `{{ config('app.url') }}/api/task/realtimeUpdate/${_id}`;
+            let data = $('#form-update').serialize();
+
+            $.ajax({
+                type: "PATCH",
+                url: url,
+                data: data,
+                success: function(result) {
+                    $('#modalUniv').modal('hide');
                     console.log(result);
                     Swal.fire({
                         title: result.response.title,

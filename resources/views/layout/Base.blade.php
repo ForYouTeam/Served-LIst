@@ -49,6 +49,17 @@
             cursor: pointer;
         }
 
+        .rmBg:active {
+            border: none;
+            background: none;
+            transform: translateY(1px);
+        }
+
+        .rmBg:hover,
+        .rmBg:focus {
+            outline: none;
+        }
+
         .tag-box:hover {
             background-color:
                 rgba(171, 201, 255, 0.26);
@@ -184,7 +195,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btn-update">Kirim</button>
+                    <button type="button" class="btn btn-primary" id="btn-update" data-id="">Kirim</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
 

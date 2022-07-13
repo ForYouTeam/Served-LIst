@@ -3,13 +3,10 @@
 use App\Http\Controllers\Cms\PrioritasController;
 use App\Http\Controllers\Cms\StaffController;
 use App\Http\Controllers\Cms\TagController;
+use App\Http\Controllers\Cms\TaskController;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get('/', function () {
-    return view('pages.Table');
-});
-
+Route::get('/', [TaskController::class, 'index'])->name('task.index');
 Route::prefix('pages')->group(function () {
     Route::get('staff', [StaffController::class, 'index'])->name('staff.index');
     Route::get('tag', [TagController::class, 'index'])->name('tag.index');
@@ -42,4 +39,12 @@ Route::prefix('api')->group(function () {
         Route::patch('/{id}', 'updatePrioritas');
         Route::delete('/{id}', 'deletePrioritas');
     });
+});
+
+Route::prefix('api/task')->controller(TaskController::class)->group(function () {
+    Route::patch('realtimeUpdate/{id}', 'updateRealtime');
+    Route::get('/get/{id}', 'getById');
+    Route::delete('/delete_task/{id}', 'deleteTask');
+    Route::delete('/del/{id}/{idtask}', 'deleteTag');
+    Route::post('/', 'createTask');
 });

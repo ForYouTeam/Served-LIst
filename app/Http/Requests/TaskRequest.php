@@ -20,6 +20,8 @@ class TaskRequest extends FormRequest
             'code_task' => 'required|min:2|max:5|unique:task,code_task',
             'nama_task' => 'required|min:2|max:50',
             'level_prioritas' => 'required|integer',
+            'id_staff' => 'required|integer',
+            'deskripsi' => 'required',
         ];
     }
 

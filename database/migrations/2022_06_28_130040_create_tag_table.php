@@ -12,7 +12,6 @@ class CreateTagTable extends Migration
             $table->id();
             $table->string('nama_tag');
             $table->text('deskripsi');
-            $table->string('color');
             $table->timestamps();
         });
     }

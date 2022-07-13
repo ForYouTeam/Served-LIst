@@ -18,7 +18,7 @@ class StaffRequest extends FormRequest
     {
         return [
             'nama' => 'required|min:2|max:50',
-            'no_regist' => 'required|min:2|max:50|unique:staff,no_regist',
+            'no_regist' => 'required|min:2|max:50',
             'id_user' => 'integer',
         ];
     }

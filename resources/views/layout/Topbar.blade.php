@@ -33,24 +33,14 @@
             <li class="header-notification">
             </li>
             <li class="user-profile header-notification">
-                <a href="#!" class="waves-effect waves-light">
-                    <img src="{{ asset('assets/images/avatar-4.jpg') }}" class="img-radius" alt="User-Profile-Image">
-                    <span>John Doe</span>
+                <a href="#" class="waves-effect waves-light">
+                    <img src="{{ asset('assets/images/user.png') }}" class="img-radius" alt="User-Profile-Image">
+                    <span>{{ Auth::user()->username }}</span>
                     <i class="ti-angle-down"></i>
                 </a>
                 <ul class="show-notification profile-notification">
                     <li class="waves-effect waves-light">
-                        <a href="#!">
-                            <i class="ti-settings"></i> Settings
-                        </a>
-                    </li>
-                    <li class="waves-effect waves-light">
-                        <a href="user-profile.html">
-                            <i class="ti-user"></i> Profile
-                        </a>
-                    </li>
-                    <li class="waves-effect waves-light">
-                        <a href="auth-normal-sign-in.html">
+                        <a href="{{ route('logout') }}">
                             <i class="ti-layout-sidebar-left"></i> Logout
                         </a>
                     </li>

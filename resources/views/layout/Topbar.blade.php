@@ -35,7 +35,7 @@
             <li class="user-profile header-notification">
                 <a href="#" class="waves-effect waves-light">
                     <img src="{{ asset('assets/images/user.png') }}" class="img-radius" alt="User-Profile-Image">
-                    <span>{{ Auth::user()->username }}</span>
+                    <span>{{ Auth::user()->staffRole ? Auth::user()->staffRole->nama : Auth::user()->username }}</span>
                     <i class="ti-angle-down"></i>
                 </a>
                 <ul class="show-notification profile-notification">

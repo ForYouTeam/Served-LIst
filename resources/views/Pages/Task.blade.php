@@ -89,8 +89,10 @@
                                     <div class="col-sm-2">
                                         <button data-id="{{ $d->id }}" id="btn-edit" type="button"
                                             class="rmBg float-right"><i class="ti-pencil"></i></button>
-                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
-                                            class="rmBg float-right"><i class="ti-trash"></i></button>
+                                        @can('delete content')
+                                            <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
+                                                class="rmBg float-right"><i class="ti-trash"></i></button>
+                                        @endcan
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -142,8 +144,10 @@
                                     <div class="col-sm-2">
                                         <button data-id="{{ $d->id }}" id="btn-edit" type="button"
                                             class="rmBg float-right"><i class="ti-pencil"></i></button>
-                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
-                                            class="rmBg float-right"><i class="ti-trash"></i></button>
+                                        @can('delete content')
+                                            <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
+                                                class="rmBg float-right"><i class="ti-trash"></i></button>
+                                        @endcan
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -195,8 +199,10 @@
                                     <div class="col-sm-2">
                                         <button data-id="{{ $d->id }}" id="btn-edit" type="button"
                                             class="rmBg float-right"><i class="ti-pencil"></i></button>
-                                        <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
-                                            class="rmBg float-right"><i class="ti-trash"></i></button>
+                                        @can('delete content')
+                                            <button data-id="{{ $d->id }}" id="btn-hapus" type="button"
+                                                class="rmBg float-right"><i class="ti-trash"></i></button>
+                                        @endcan
                                     </div>
                                 </div>
                                 <div class="row mt-2">

@@ -153,7 +153,8 @@
                                     <img class="img-80 img-radius" src="{{ asset('assets/images/user.png') }}"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">{{ Auth::user()->username }}</span>
+                                        <span
+                                            id="more-details">{{ Auth::user()->staffRole ? Auth::user()->staffRole->nama : Auth::user()->username }}</span>
                                     </div>
                                 </div>
                             </div>

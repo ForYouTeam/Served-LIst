@@ -35,6 +35,7 @@
                                                 <th style="width: 20px;">#</th>
                                                 <th>Nama</th>
                                                 <th>Nomor Regist</th>
+                                                <th>Username</th>
                                                 <th style="width: 100px;">Opsi</th>
                                             </tr>
                                         </thead>
@@ -47,6 +48,7 @@
                                                     <td>{{ $no++ }}</td>
                                                     <td>{{ $d->nama }}</td>
                                                     <td>{{ $d->no_regist }}</td>
+                                                    <td>{{ $d->userRole->username }}</td>
                                                     <td>
                                                         <button id="btn-edit"
                                                             class="btn waves-effect waves-light btn-primary btn-icon"
@@ -83,16 +85,33 @@
                                         placeholder="klik disini!" autocomplete="off">
                                     <small class="text-danger" id="nama-alert"></small>
                                 </div>
-                                <div class="col-md-12 form-group">
+                                <div class="col-md-6 form-group">
                                     <label class="col-form-label">Nomor Regist</label>
                                     <input name="no_regist" type="number" class="form-control mt-2"
                                         placeholder="klik disini!" autocomplete="off">
                                     <small class="text-danger" id="no_regist-alert"></small>
                                 </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="col-form-label">Username</label>
+                                    <input name="username" type="text" readonly class="form-control mt-2"
+                                        placeholder="klik disini!" autocomplete="off">
+                                    <small class="text-danger" id="username-alert"></small>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="col-form-label">Password</label>
+                                    <input name="password" type="password" class="form-control mt-2"
+                                        placeholder="klik disini!" autocomplete="off">
+                                    <small class="text-danger" id="password-alert"></small>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="col-form-label">Konfirmasi Password</label>
+                                    <input name="password_confirmation" type="password" class="form-control mt-2"
+                                        placeholder="klik disini!" autocomplete="off">
+                                </div>
                                 <div class="col-md-12 form-group">
                                     <button type="button" id="btn-simpan"
                                         class="float-right btn waves-effect waves-light btn-primary"><i
-                                            class="fa-solid fa-paper-plane"></i></i>Kirim Formulir</button>
+                                            class="fa-solid fa-paper-plane"></i>Kirim Formulir</button>
                                 </div>
                             </form>
                         </div>
@@ -113,6 +132,11 @@
             });
 
             $('#tableData').DataTable();
+        });
+
+        $(document).on('keyup', 'input[name="no_regist"]', function() {
+            let val = $(this).val();
+            $('input[name="username"]').val(val);
         });
 
         $(document).on('click', '#btn-simpan', function() {
@@ -147,6 +171,8 @@
                         $('.miniAlert').html('');
                         $('#nama-alert').html(errorRes.data.nama);
                         $('#no_regist-alert').html(errorRes.data.no_regist);
+                        $('#username-alert').html(errorRes.data.username);
+                        $('#password-alert').html(errorRes.data.password);
                     }
                 }
             });
@@ -174,6 +200,11 @@
                             <label class="col-form-label">Nomor Regist</label>
                             <input name="no_regist" type="number" class="form-control mt-2"
                                 placeholder="klik disini!" autocomplete="off" value="${result.data.no_regist}">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label class="col-form-label">Username</label>
+                            <input name="username" type="text" class="form-control mt-2"
+                                placeholder="klik disini!" autocomplete="off" value="${result.data.user_role.username}">
                         </div>
                         <blockquote class="blockquote mt-3">
                             <p class="m-b-0">Pastikan semua field terisi sebelum mengirim formulir.</p>

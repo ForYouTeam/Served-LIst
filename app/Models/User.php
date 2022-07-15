@@ -16,4 +16,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function staffRole()
+    {
+        return $this->hasOne(StaffModel::class, 'id_user');
+    }
 }

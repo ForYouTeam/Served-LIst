@@ -19,7 +19,7 @@ class TaskController extends Controller
     public function index()
     {
         $data = TaskModel::with('prioritasRole', 'tagsRole.tagRole', 'staffRole')->get();
-        return view('Pages.Task')->with('data', $data);
+        return view('pages.Task')->with('data', $data);
     }
 
     public function updateRealtime($id, Request $request)

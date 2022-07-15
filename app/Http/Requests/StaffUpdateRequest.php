@@ -6,9 +6,8 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StaffRequest extends FormRequest
+class StaffUpdateRequest extends FormRequest
 {
-
     public function authorize()
     {
         return true;
@@ -19,8 +18,7 @@ class StaffRequest extends FormRequest
         return [
             'nama' => 'required|min:2|max:50',
             'no_regist' => 'required|min:2|max:50',
-            'username' => 'required|min:4|unique:users,username',
-            'password' => 'required|min:4|confirmed'
+            'username' => 'required|min:4',
         ];
     }
 

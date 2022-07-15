@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Mega Able bootstrap admin template by codedthemes </title>
+    <title>{{ config('app.name') }} </title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -150,10 +150,11 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
                                 <div class="main-menu-header">
-                                    <img class="img-80 img-radius" src="{{ asset('assets/images/avatar-4.jpg') }}"
+                                    <img class="img-80 img-radius" src="{{ asset('assets/images/user.png') }}"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">John Doe</span>
+                                        <span
+                                            id="more-details">{{ Auth::user()->staffRole ? Auth::user()->staffRole->nama : Auth::user()->username }}</span>
                                     </div>
                                 </div>
                             </div>

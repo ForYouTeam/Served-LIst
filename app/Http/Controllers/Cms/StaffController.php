@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Cms;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StaffRequest;
+use App\Http\Requests\StaffUpdateRequest;
 use App\Models\StaffModel;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class StaffController extends Controller
 {
@@ -42,7 +45,16 @@ class StaffController extends Controller
     public function createStaff(StaffRequest $request)
     {
         try {
-            $dbResult = StaffModel::create($request->all());
+            $regist = User::create([
+                'username' => $request->username,
+                'password' => Hash::make($request->password)
+            ]);
+            $regist->assignRole('user');
+            $dbResult = StaffModel::create([
+                'nama' => $request->nama,
+                'no_regist' => $request->no_regist,
+                'id_user' => $regist->id
+            ]);
             $staff = array(
                 'data' => $dbResult,
                 'response' => array(
@@ -71,7 +83,7 @@ class StaffController extends Controller
     {
         $id = Crypt::decrypt($idStaff);
         try {
-            $dbResult = StaffModel::whereId($id)->first();
+            $dbResult = StaffModel::whereId($id)->with('userRole')->first();
             if ($dbResult) {
                 $staff = array(
                     'data' => $dbResult,
@@ -103,7 +115,7 @@ class StaffController extends Controller
         return response()->json($staff, $staff['code']);
     }
 
-    public function updateStaff(StaffRequest $request, $idStaff)
+    public function updateStaff(StaffUpdateRequest $request, $idStaff)
     {
         try {
             $id = Crypt::decrypt($idStaff);
@@ -111,7 +123,6 @@ class StaffController extends Controller
             $findId = $dbCon->first();
 
             $request->updated_at = Carbon::now();
-
 
             if ($findId) {
                 $staff = array(
@@ -123,6 +134,9 @@ class StaffController extends Controller
                     ),
                     'code' => 201
                 );
+                User::whereId($dbCon->id_user)->update([
+                    'username' => $request->username
+                ]);
             } else {
                 $staff = array(
                     'data' => null,
@@ -165,6 +179,7 @@ class StaffController extends Controller
                     ),
                     'code' => 201
                 );
+                User::whereId($findId->id_user)->delete();
             } else {
                 $staff = array(
                     'data' => null,

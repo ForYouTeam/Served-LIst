@@ -102,7 +102,8 @@
                                 </div>
                                 @csrf
                                 <div class="form-group form-primary mt-4">
-                                    <input type="text" name="username" class="form-control" required="">
+                                    <input type="text" autocomplete="off" name="username" class="form-control"
+                                        required="">
                                     <span class="form-bar"></span>
                                     <label class="float-label">Username</label>
                                 </div>

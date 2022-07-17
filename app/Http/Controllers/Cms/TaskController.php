@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRequest;
 use App\Interfaces\TagRepositoryInterface;
 use App\Models\DetailTagModel;
+use App\Models\StaffModel;
 use App\Models\TagModel;
 use App\Models\TaskModel;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -18,7 +21,14 @@ class TaskController extends Controller
     }
     public function index()
     {
-        $data = TaskModel::with('prioritasRole', 'tagsRole.tagRole', 'staffRole')->get();
+        $iduser = Auth::user()->id;
+        $user = User::whereId($iduser)->first();
+        if ($user->hasRole('super-admin')) {
+            $data = TaskModel::with('prioritasRole', 'tagsRole.tagRole', 'staffRole')->get();
+        } else {
+            $staff = StaffModel::where('id_user', $iduser)->value('id');
+            $data = TaskModel::where('id_staff', $staff)->with('prioritasRole', 'tagsRole.tagRole', 'staffRole')->get();
+        }
         return view('pages.Task')->with('data', $data);
     }
 

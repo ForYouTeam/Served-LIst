@@ -425,7 +425,7 @@
         }
 
         $(document).on('click', '#btn-update', function() {
-            let url = `{{ config('app.url') }}/api/task/`;
+            let url = `{{ config('app.url') }}/api/task/create`;
             let data = $('#form-update').serialize();
 
             $.ajax({

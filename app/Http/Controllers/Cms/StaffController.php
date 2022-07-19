@@ -126,7 +126,11 @@ class StaffController extends Controller
 
             if ($findId) {
                 $staff = array(
-                    'data' => $dbCon->update($request->all()),
+                    'data' => $dbCon->update([
+                        'nama' => $request->nama,
+                        'no_regist' => $request->no_regist,
+                        'updated_at' => $request->updated_at,
+                    ]),
                     'response' => array(
                         'icon' => 'success',
                         'title' => 'Tersimpan',
@@ -134,7 +138,7 @@ class StaffController extends Controller
                     ),
                     'code' => 201
                 );
-                User::whereId($dbCon->id_user)->update([
+                User::whereId($findId->id_user)->update([
                     'username' => $request->username
                 ]);
             } else {

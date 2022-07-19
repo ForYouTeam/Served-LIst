@@ -425,12 +425,12 @@
         }
 
         $(document).on('click', '#btn-update', function() {
-            let url = `{{ config('app.url') }}/api/new_task`;
+            let url = `{{ config('app.url') }}/api/task/`;
             let data = $('#form-update').serialize();
 
             $.ajax({
-                url: url,
                 type: "POST",
+                url: url,
                 data: data,
                 success: function(result) {
                     $('#modalUniv').modal('hide');

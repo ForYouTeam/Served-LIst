@@ -47,6 +47,6 @@ Route::prefix('api')->middleware('auth')->group(function () {
         Route::get('/get/{id}', 'getById')->middleware('permission:getbyid content');
         Route::delete('/delete_task/{id}', 'deleteTask')->middleware('permission:delete content');
         Route::delete('/del/{id}/{idtask}', 'deleteTag');
+        Route::post('/', 'createTask')->middleware('permission:post content');
     });
-    Route::post('new_task', [TaskController::class], 'createTask')->middleware('permission:post content');
 });

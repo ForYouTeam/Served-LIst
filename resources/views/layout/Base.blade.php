@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Mega Able bootstrap admin template by codedthemes </title>
+    <title>{{ config('app.name') }} </title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -28,7 +28,59 @@
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css"
         media="all" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.css"
+        integrity="sha256-AAqx1xXi9Bf0sAjL1wva6EMJ2z+rtAeSNSRRqVpN8cw=" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/amsify.suggestags.css') }}">
+    <style>
+        .myBox {
+            box-shadow:
+                2.1px 2.9px 10.2px rgba(0, 0, 0, 0.012),
+                7.1px 9.6px 34.2px rgba(0, 0, 0, 0.018),
+                32px 43px 153px rgba(0, 0, 0, 0.03);
+
+            border-radius: 4px;
+        }
+
+        .rmBg {
+            background: none;
+            border: none;
+            color: gray;
+            cursor: pointer;
+        }
+
+        .rmBg:active {
+            border: none;
+            background: none;
+            transform: translateY(1px);
+        }
+
+        .rmBg:hover,
+        .rmBg:focus {
+            outline: none;
+        }
+
+        .tag-box:hover {
+            background-color:
+                rgba(171, 201, 255, 0.26);
+        }
+
+        .btn-nofill {
+            background: none;
+            border: none;
+            color: white;
+            font-weight: 600;
+        }
+
+        .my-cotume-tag {
+            font-size: 8pt;
+            border: 0.5px solid #A0BCC2;
+            padding: 2px 7px 3px 7px;
+            margin: 0px 2px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -98,10 +150,11 @@
                         <div class="pcoded-inner-navbar main-menu">
                             <div class="">
                                 <div class="main-menu-header">
-                                    <img class="img-80 img-radius" src="{{ asset('assets/images/avatar-4.jpg') }}"
+                                    <img class="img-80 img-radius" src="{{ asset('assets/images/user.png') }}"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span id="more-details">John Doe</span>
+                                        <span
+                                            id="more-details">{{ Auth::user()->staffRole ? Auth::user()->staffRole->nama : Auth::user()->username }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -109,20 +162,6 @@
                         </div>
                     </nav>
                     <div class="pcoded-content">
-                        <!-- Page-header start -->
-                        <div class="page-header">
-                            <div class="page-block">
-                                <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                        <div class="page-header-title">
-                                            <h5 class="m-b-10">Dashboard</h5>
-                                            <p class="m-b-0">Welcome to Mega Able</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Page-header end -->
                         <div class="pcoded-inner-content">
                             <!-- Main-body start -->
                             <div class="main-body">
@@ -157,6 +196,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btn-update" data-id="">Kirim</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
 
@@ -181,7 +221,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/modernizr/modernizr.js') }}"></script>
     <!-- slimscroll js -->
     {{-- <script type="text/javascript" src="{{ asset('assets/js/SmoothScroll.js') }}"></script> --}}
-    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+    <script src="{{ asset('assets/js/jquery.mCustomScrollbar.concat.min.js ') }}"></script>
     <!-- Chart js -->
     <script type="text/javascript" src="{{ asset('assets/js/chart.js/Chart.js') }}"></script>
     <!-- amchart js -->
@@ -198,7 +238,11 @@
     {{-- <script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script> --}}
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.js"
+        integrity="sha256-yo732aQ32L7iswb/oI0g6AcQDyf0P/9h08dt9GPlC18=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/jquery.amsify.suggestags.js') }}"></script>
+
     @yield('script')
 </body>
 
